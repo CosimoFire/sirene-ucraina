@@ -26,7 +26,7 @@ Nel CMS inserisci un blocco HTML con questo codice:
 ```html
 <iframe src="https://cosimofire.github.io/sirene-ucraina/dashboard.html"
         title="Le sirene nelle principali città ucraine nell'ultimo mese"
-        style="width:100%;border:0;height:1650px" scrolling="no"></iframe>
+        style="width:100%;border:0;height:1500px" scrolling="no"></iframe>
 ```
 
 Per aprire il grafico già su una città, aggiungi il suo nome dopo `#` nell'indirizzo: `dashboard.html#kharkiv`, `#dnipro`, `#zaporizhzhia`, `#odessa`, `#leopoli` (senza nulla si apre Kiev).

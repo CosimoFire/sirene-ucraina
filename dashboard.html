@@ -103,11 +103,10 @@ footer p { margin: 0; }
     <span class="area-note" id="areaNote"></span>
   </section>
 
-  <section class="stats" id="stats" aria-live="polite"></section>
-
 
   <section style="display:grid;gap:8px">
-    <h2>La timeline dal 10 ottobre al 10 novembre 2026</h2>
+    <div><h2 id="cityTitle" aria-live="polite"></h2>
+    <p class="sub">La timeline dal 10 ottobre al 10 novembre 2026 per tipologia di minaccia</p></div>
     <div class="legend" aria-label="Legenda">
       <span><i class="sw" style="background:var(--missile)"></i>Missili</span>
       <span><i class="sw" style="background:var(--drone)"></i>Droni (UAV)</span>
@@ -166,12 +165,7 @@ function renderStats(c) {
   const misPct = t.all ? Math.round(t.mis / t.all * 100) : 0;
   let best = D[0];
   for (const d of D) if (c.days[d][1] > c.days[best][1]) best = d;
-  document.getElementById("stats").innerHTML = `
-    <div class="stat"><b>${fmtH(t.all)}</b><span>in allarme in ${D.length} giorni</span></div>
-    <div class="stat"><b>${pct}%</b><span>del tempo con la sirena attiva</span></div>
-    <div class="stat"><b>${t.all ? misPct + "%" : "–"}</b><span>delle ore per minaccia missili</span>
-      <div class="mix" aria-hidden="true"><i style="width:${misPct}%;background:var(--missile)"></i><i style="width:${t.all ? 100 - misPct : 0}%;background:var(--drone)"></i></div></div>
-    <div class="stat"><b>${dLab(best)}</b><span>giorno più lungo: ${fmtH(c.days[best][1])}</span></div>`;
+  document.getElementById("cityTitle").textContent = `A ${c.name} gli allarmi sono rimasti attivi il ${pct}% del tempo`;
   document.getElementById("areaNote").textContent = "Dati: " + c.row.charAt(0).toLowerCase() + c.row.slice(1) + " del sito";
 }
 
