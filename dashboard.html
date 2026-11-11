@@ -6,88 +6,55 @@
 <title>Le sirene nelle principali città ucraine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
 <style>
-/* Layout: colonna editoriale stretta; sintesi numerica, poi timeline 10 giorni × 24 ore, poi confronto tra città */
-:root {
-  --bg: #ffffff;
-  --ink: #1b1d22;
-  --muted: #5d626b;
-  --track: #e4e4df;
-  --line: #d3d3cc;
-  --missile: #e2655a;
-  --drone: #f5c11e;
-  --expl: #8a4fd0;
-  --accent: #1f4e8c;
-  --panel: #ffffff;
-  --display: "Archivo Narrow", "Arial Narrow", Arial, sans-serif;
-  --body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
-}
-* { box-sizing: border-box; }
-html, body { margin: 0; }
-body { background: var(--bg); color: var(--ink); font: 16px/1.5 var(--body); }
-main { max-width: 1040px; margin: 0 auto; padding: 8px 16px 16px; display: grid; gap: 28px; }
-h1, h2 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
-h1 { font-size: clamp(28px, 4.4vw, 42px); line-height: 1.08; font-weight: 700; }
-h2 { font-size: 22px; font-weight: 600; }
-.dek { color: var(--muted); margin: 8px 0 0; max-width: 65ch; }
-.picker { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
-.picker label { font-family: var(--display); font-weight: 600; font-size: 18px; }
-select {
-  font: 600 18px var(--display); color: var(--ink); background: var(--panel);
-  border: 1.5px solid var(--ink); border-radius: 6px; padding: 8px 40px 8px 12px; cursor: pointer;
-  appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
-  background-position: calc(100% - 20px) 55%, calc(100% - 14px) 55%;
-  background-size: 6px 6px; background-repeat: no-repeat;
-}
-select:focus-visible, .cmp button:focus-visible, rect.al:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
-.area-note { color: var(--muted); font-size: 15px; }
-.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-.stat { background: var(--bg); padding: 14px 16px; }
-.stat b { display: block; font: 700 34px/1.05 var(--display); font-variant-numeric: tabular-nums; }
-.stat span { color: var(--muted); font-size: 14px; }
-.mix { display: flex; height: 8px; margin-top: 8px; border-radius: 2px; overflow: hidden; background: var(--track); }
-.mix i { display: block; height: 100%; }
-@media (max-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.sw { width: 14px; height: 14px; border-radius: 2px; display: inline-block; }
-.sw.ex { width: 3px; height: 16px; border-radius: 0; }
-.chart-wrap { overflow-x: auto; overflow-y: hidden; position: relative; }
-#timeline { display: block; width: 100%; min-width: 640px; height: auto; }
-#timeline text { fill: var(--muted); font-family: var(--body); }
-#timeline .day { fill: var(--ink); font-family: var(--display); font-weight: 600; }
-rect.al { cursor: pointer; }
-rect.al:hover { opacity: .8; }
-.tip {
-  position: absolute; pointer-events: none; background: var(--ink); color: var(--bg); font-size: 14px;
-  padding: 8px 10px; border-radius: 6px; max-width: 280px; opacity: 0; transition: opacity .1s; z-index: 2;
-}
-.tip.on { opacity: 1; }
-.tip b { font-family: var(--display); font-size: 16px; }
-.tip small { display: block; opacity: .8; margin-top: 2px; }
-.cmp { display: grid; gap: 6px; }
-.cmp button {
-  display: grid; grid-template-columns: 120px 1fr 92px; align-items: center; gap: 12px;
-  background: none; border: 0; padding: 4px 0; font: inherit; color: var(--ink); text-align: left; cursor: pointer;
-}
-.cmp .bar { height: 18px; background: var(--track); border-radius: 2px; overflow: hidden; display: flex; }
-.cmp .bar i { display: block; height: 100%; }
-.cmp .val { font-variant-numeric: tabular-nums; text-align: right; color: var(--muted); font-size: 15px; }
-.cmp button.sel .name { font-weight: 600; }
-.cmp button.sel .val { color: var(--ink); font-weight: 600; }
-.cmp button:not(.sel) .bar i { opacity: .55; }
-@media (max-width: 480px) { .cmp button { grid-template-columns: 92px 1fr 76px; gap: 8px; } }
-footer { color: var(--muted); font-size: 14px; display: grid; gap: 6px; border-top: 1px solid var(--line); padding-top: 14px; max-width: 80ch; }
-footer p { margin: 0; }
-@media (prefers-reduced-motion: reduce) { .tip { transition: none; } }
-</style>
-<style>
-#daily { display: block; width: 100%; min-width: 640px; height: auto; }
-#daily text { fill: var(--muted); font-family: var(--body); }
-#timeline .month { fill: var(--ink); font-family: var(--display); font-weight: 700; }
-.sub { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
+/* Stile dei grafici golden power: Source Serif 4, azzurro come unico accento, grigi */
+:root{--blu:#169cdc;--blu-scuro:#0b6fa3;--ink:#1a1a1a;--ink2:#444;--muted:#6b6b6b;--grigio:#9b9b9b;--grigio-chiaro:#d9d9d9;--scuro:#3b3b3b;--panel:#f0f0f0;--bordo:#bdbdbd;
+  --missile:var(--blu);--drone:var(--grigio);--expl:var(--scuro);--track:#ececec;--bg:#fff;--line:var(--grigio-chiaro)}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff}
+body{font-family:"Source Serif 4",Georgia,serif;color:var(--ink);font-size:16px;line-height:1.45}
+main{max-width:620px;margin:0 auto;padding:16px 12px 2px;display:grid;gap:0}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.1;margin:0 0 6px;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+h2{font-size:22px;margin:30px 0 4px;font-weight:700;text-wrap:balance}
+.dek{margin:0 0 18px;color:var(--ink2)}
+.sub{margin:0 0 8px;color:var(--ink2);font-size:15px}
+.picker{background:var(--panel);padding:14px 18px 16px;margin:0 0 4px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;text-align:center}
+.picker label{font-size:15px;font-weight:700}
+select{font-family:inherit;font-size:16px;font-weight:700;color:#fff;background:var(--blu);border:2px solid var(--blu);padding:6px 36px 6px 12px;cursor:pointer;appearance:none;min-width:170px;
+  background-image:linear-gradient(45deg,transparent 50%,#fff 50%),linear-gradient(135deg,#fff 50%,transparent 50%);background-position:calc(100% - 18px) 55%,calc(100% - 12px) 55%;background-size:6px 6px;background-repeat:no-repeat}
+select option{color:var(--ink);background:#fff}
+select:focus-visible,.cmp button:focus-visible,rect.al:focus{outline:3px solid var(--blu-scuro);outline-offset:2px}
+.area-note{flex-basis:100%;font-size:12.5px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin:6px 0 8px;color:var(--ink2)}
+.legend span{display:inline-flex;align-items:center}
+.sw{display:inline-block;width:12px;height:12px;margin-right:5px}
+.sw.ex{width:3px;height:14px}
+.chart-wrap{overflow-x:auto;overflow-y:hidden;position:relative;border-top:2px solid var(--grigio-chiaro);padding-top:6px}
+#timeline{display:block;width:100%;height:auto}
+#timeline text{fill:var(--muted);font-family:"Source Serif 4",Georgia,serif}
+#timeline .day{fill:var(--ink);font-weight:600}
+#timeline .month{fill:var(--ink);font-weight:700}
+rect.al{cursor:pointer}
+rect.al:hover{opacity:.8}
+.tip{position:absolute;pointer-events:none;background:var(--scuro);color:#fff;font-size:14px;padding:8px 10px;max-width:270px;opacity:0;transition:opacity .1s;z-index:2}
+.tip.on{opacity:1}
+.tip b{font-size:15px}
+.tip small{display:block;color:#ddd;margin-top:2px}
+.cmp{display:grid;gap:0;border-top:2px solid var(--grigio-chiaro)}
+.cmp button{display:grid;grid-template-columns:minmax(96px,130px) minmax(0,1fr) 64px;gap:10px;align-items:center;padding:6px 0;border:0;border-bottom:1px solid #e6e6e6;background:none;font-family:inherit;font-size:15px;color:var(--ink);text-align:left;cursor:pointer;width:100%}
+.cmp button:hover{background:#fafafa}
+.cmp .bar{height:18px;display:flex;gap:2px}
+.cmp .bar i{display:block;height:100%}
+.cmp .val{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.cmp button.sel .name{font-weight:700}
+.cmp button:not(.sel) .bar i{opacity:.55}
+.cmp button:not(.sel) .val{font-weight:400;color:var(--ink2)}
+.nota{font-size:14px;color:var(--ink2);border-left:3px solid var(--blu);padding:2px 0 2px 12px;margin:14px 0 0}
+.nota p{margin:0 0 6px}
+.fonte{border-top:2px solid var(--grigio-chiaro);margin-top:18px;padding-top:8px;font-size:12.5px;color:var(--ink2)}
+@media (max-width:560px){.cmp button{grid-template-columns:minmax(80px,100px) minmax(0,1fr) 60px;font-size:14px}}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
 </style>
 </head>
 <body>
@@ -98,13 +65,13 @@ footer p { margin: 0; }
   </header>
 
   <section class="picker" aria-label="Scelta della città">
-    <label for="city">Città</label>
+    <label for="city">Scegli la città</label>
     <select id="city"></select>
     <span class="area-note" id="areaNote"></span>
   </section>
 
 
-  <section style="display:grid;gap:8px">
+  <section>
     <div><h2 id="cityTitle" aria-live="polite"></h2>
     <p class="sub">La timeline dal 10 ottobre al 10 novembre 2026 per tipologia di minaccia</p></div>
     <div class="legend" aria-label="Legenda">
@@ -119,17 +86,14 @@ footer p { margin: 0; }
     </div>
   </section>
 
-  <section style="display:grid;gap:12px">
+  <section>
     <h2>Ore in allarme nel mese, confronto tra le città</h2>
+    <p class="sub">In azzurro le ore per minaccia missili, in grigio per droni</p>
     <div class="cmp" id="cmp"></div>
   </section>
 
-  <footer>
-    <p>Orari in ora di Kiev come mostrati dai tooltip della vista "Alerts History" del sito: UTC+3 fino al 25 ottobre, poi UTC+2. Il 25 ottobre durò 25 ore: le durate contano l’ora ripetuta, la timeline non la disegna due volte.</p>
-    <p>Per Odessa e Leopoli il sito non ha una riga dedicata alla città: i dati sono quelli del distretto che la comprende. Per Dnipro, dal 10 al 20 ottobre il sito non ha la riga della città e si usa il distretto (Dniprovskyi); dal 21 ottobre la riga “Dnipro city”.</p>
-    <p>Gli allarmi a cavallo della mezzanotte sono divisi sui due giorni; gli orari ricostruiti per un difetto del sito sono annotati nel dettaglio di ogni barra. L’allarme di Zaporizhzhia iniziato il 10 novembre alle 18:08 era ancora in corso l’11 novembre.</p>
-    <p>Fonte: alerts.in.ua</p>
-  </footer>
+  <div class="nota"><p>Orari in ora di Kiev come mostrati dai tooltip della vista "Alerts History" del sito: UTC+3 fino al 25 ottobre, poi UTC+2. Il 25 ottobre durò 25 ore: le durate contano l’ora ripetuta, la timeline non la disegna due volte.</p><p>Per Odessa e Leopoli il sito non ha una riga dedicata alla città: i dati sono quelli del distretto che la comprende. Per Dnipro, dal 10 al 20 ottobre il sito non ha la riga della città e si usa il distretto (Dniprovskyi); dal 21 ottobre la riga “Dnipro city”.</p><p>Gli allarmi a cavallo della mezzanotte sono divisi sui due giorni; gli orari ricostruiti per un difetto del sito sono annotati nel dettaglio di ogni barra. L’allarme di Zaporizhzhia iniziato il 10 novembre alle 18:08 era ancora in corso l’11 novembre.</p></div>
+  <div class="fonte">Fonte: elaborazione su dati alerts.in.ua (Alerts History), 10 ottobre – 10 novembre 2026</div>
 </main>
 
 <script>
@@ -171,7 +135,7 @@ function renderStats(c) {
 
 function renderTimeline(c) {
   const svg = document.getElementById("timeline"); clear(svg);
-  const W = Math.max(640, Math.round(document.getElementById("wrap").clientWidth) || 1000), X0 = 96, X1 = W - 24, RH = 16, GAP = 6, TOP = 30;
+  const W = Math.max(560, Math.round(document.getElementById("wrap").clientWidth) || 1000), X0 = 96, X1 = W - 24, RH = 16, GAP = 6, TOP = 30;
   const H = TOP + D.length * (RH + GAP) + 8;
   const px = m => X0 + m / 1440 * (X1 - X0);
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
@@ -220,7 +184,7 @@ function renderCompare(cur) {
     box.appendChild(b);
   }
   const n = document.createElement("p");
-  n.style.cssText = "margin:4px 0 0;color:var(--muted);font-size:14px";
+  n.style.cssText = "margin:6px 0 0;color:var(--muted);font-size:12.5px";
   n.textContent = "* dati del distretto · ** distretto fino al 20 ottobre, poi città. Clicca una città per vederne i dati.";
   box.appendChild(n);
 }
