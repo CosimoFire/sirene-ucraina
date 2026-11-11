@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sirene in Ucraina - prova dell'embed</title>
+<style>
+body{font-family:Georgia,serif;max-width:720px;margin:0 auto;padding:20px 12px;color:#1a1a1a}
+p.art{line-height:1.6}
+iframe{width:100%;border:0;display:block;margin:24px 0}
+</style>
+</head>
+<body>
+<p class="art">Questa pagina simula un articolo e mostra il grafico incorporato come farebbe il sito di notizie. L'altezza dell'iframe si adatta da sola al contenuto.</p>
+
+<iframe src="dashboard.html" title="Le sirene nelle principali città ucraine nell'ultimo mese" scrolling="no"></iframe>
+
+<p class="art">Testo dell'articolo dopo il grafico.</p>
+
+<script>
+window.addEventListener('message', function (e) {
+  if (!e.data || !e.data.gpEmbed || !e.data.height) return;
+  document.querySelectorAll('iframe').forEach(function (f) {
+    if (f.contentWindow === e.source) f.style.height = e.data.height + 'px';
+  });
+});
+</script>
+</body>
+</html>
