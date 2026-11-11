@@ -29,7 +29,7 @@ Nel CMS inserisci un blocco HTML con questo codice:
         style="width:100%;border:0;height:1650px" scrolling="no"></iframe>
 ```
 
-Per aprire il grafico già su una città, aggiungi il suo nome dopo `#` nell'indirizzo: `dashboard.html#kharkiv`, `#dnipro`, `#zaporizhzhia`, `#odessa`, `#leopoli` (senza nulla si apre Kyiv).
+Per aprire il grafico già su una città, aggiungi il suo nome dopo `#` nell'indirizzo: `dashboard.html#kharkiv`, `#dnipro`, `#zaporizhzhia`, `#odessa`, `#leopoli` (senza nulla si apre Kiev).
 
 ### Altezza automatica
 
