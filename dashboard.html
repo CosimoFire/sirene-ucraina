@@ -129,7 +129,7 @@ function renderStats(c) {
   const misPct = t.all ? Math.round(t.mis / t.all * 100) : 0;
   let best = D[0];
   for (const d of D) if (c.days[d][1] > c.days[best][1]) best = d;
-  document.getElementById("cityTitle").textContent = `A ${c.name} gli allarmi sono rimasti attivi il ${pct}% del tempo`;
+  document.getElementById("cityTitle").textContent = `A ${c.name} le allerte sono rimaste attive il ${pct}% del tempo`;
   document.getElementById("areaNote").textContent = "Dati: " + c.row.charAt(0).toLowerCase() + c.row.slice(1) + " del sito";
 }
 
